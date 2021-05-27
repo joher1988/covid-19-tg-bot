@@ -1,9 +1,11 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace COVID19.Termin.Bot
 {
     public interface ICheckService
     {
-        Task<bool> CheckTermin();
+        Task<IEnumerable<string>> CheckTermin();
     }
 }

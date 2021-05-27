@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace COVID19.Termin.Bot.Commands
@@ -21,7 +22,11 @@ namespace COVID19.Termin.Bot.Commands
             await _subscriptionManager.Add(chatId.ToString(), async () =>
             {
                 var result = await _checkService.CheckTermin();
-                await chatService.SendMessage(chatId, result ? "Есть термин !!!!!!" : "Нет терминов =(");
+                foreach (var r in result)
+                {
+                    await chatService.SendMessage(chatId, r);
+                }
+                    
             });
         }
     }
@@ -57,7 +62,12 @@ namespace COVID19.Termin.Bot.Commands
         public async Task Execute(IChatService chatService, long chatId, int userId, int messageId, string? commandText)
         {
             var result = await _checkService.CheckTermin();
-            await chatService.SendMessage(chatId, result ? "Есть термин !!!!!!" : "Нет терминов =(");
+            if(result.Count() == 0)
+                await chatService.SendMessage(chatId, "Нет терминов =(");
+            foreach (var r in result)
+            {
+                await chatService.SendMessage(chatId, r);
+            }
         }
     }
 }

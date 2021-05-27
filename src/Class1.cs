@@ -45,7 +45,7 @@ namespace COVID19.Termin.Bot
             finally
             {
                 _timer?.Change
-                (TimeSpan.FromMinutes(10),
+                (TimeSpan.FromMinutes(5),
                     TimeSpan.FromMilliseconds(-1));
             }
         }
